@@ -1,0 +1,95 @@
+.. Hawkes_TDB documentation master file, created by
+   sphinx-quickstart on Tue Aug  8 13:11:21 2017.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+About Hawkes_TDB
+----------------------
+A python module “Hawkes_TDB” estimates a Hawkes process model with a time-dependent background rate based on Omi et al., (2017). Anyone can freely use this code without permission for non-commercial purposes, but please appropriately cite Omi et al., (2017) if you present results obtained by using Hawkes_TDB.
+
+Reference
+----------------------
+T. Omi, Y. Hirata, and K. Aihara, Hawkes process model with a time-dependent background rate and its application to high-frequency financial data, Physical Review E 96, 012303 (2017).
+
+
+Requirements
+----------------------
+:mod:`Hawkes_TDB` depends on the following external packages:
+	
+- Python 2.7
+- Numpy
+- Scipy
+- Matplotlib
+- Pandas
+- Cython
+
+Download
+---------------------
+A source code is available at \ https://github.com/omitakahiro/Hawkes_TDB/\ . After downloading and unzipping the source file, please rename the package folder to “Hawkes_TDB”, and place it in your working folder.
+
+
+Data preparation
+---------------------
+A data file is an ascii file that contains the list of occurrence times of events. A sample data file is included in the source file (./Hawkes_TDB/sample.txt). 
+    
+A data file is like:
+	
+.. code-block:: none
+
+	11.766350
+	74.832453
+	86.070326
+	91.188811
+	106.781628
+	121.730578
+	176.882013
+	189.934206
+	193.354620
+	200.264633
+	...
+
+
+.. note:: The times must be different to each other. If multiple events have the identical times, our code does not work well.
+
+
+User manual
+---------------------
+
+This code returns estimation results (It takes a few minutes).
+
+.. code-block:: python
+
+	import Hawkes_TDB as hk
+	
+	T = np.loadtxt("./Hawkes_TDB/sample.txt") # data
+	t = [0.0,21600.0] # the start and end of the observation interval
+	param = hk.Estimate(T,t)
+	
+
+The object `param` is a dictionary that contains the estimation results.
+
+.. csv-table::
+   :header: "key", "despription"
+   :widths: 10,100
+
+   "alpha1","the alpha parameter of the first exponential function "
+   "alpha2","the alpha parameter of the second exponential function "
+   "beta1","the beta parameter of the first exponential function"
+   "beta2","the beta parameter of the second exponential function"
+   "mu","the background rate at each event"
+   "L","log-likelihood"
+
+You can plot the time-dependent backgrount rate by running the below code
+
+.. code-block:: python
+
+	plt.semilogy(T,param["mu"],'k-')
+	plt.xlabel("time")
+	plt.ylabel("background rate")
+	plt.xlim([0.,21600.])
+	
+.. image:: mu.png
