@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>About Hawkes_TDB &#8212; Hawkes_TDB  documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">Hawkes_TDB  documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">About Hawkes_TDB</a></li>
+<li><a class="reference internal" href="#reference">Reference</a></li>
+<li><a class="reference internal" href="#requirements">Requirements</a></li>
+<li><a class="reference internal" href="#download">Download</a></li>
+<li><a class="reference internal" href="#data-preparation">Data preparation</a></li>
+<li><a class="reference internal" href="#user-manual">User manual</a><ul>
+<li><a class="reference internal" href="#api">API</a></li>
+<li><a class="reference internal" href="#sample-code">Sample code</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="toctree-wrapper compound">
+</div>
+<span class="target" id="module-Hawkes_TDB"></span><div class="section" id="about-hawkes-tdb">
+<h1>About Hawkes_TDB<a class="headerlink" href="#about-hawkes-tdb" title="Permalink to this headline">¶</a></h1>
+<p>A python module “Hawkes_TDB” aims to estimate a Hawkes process model with a time-dependent background rate based on Omi et al.,&nbsp;(2017). Anyone can freely use this code without permission for non-commercial purposes, but please appropriately cite&nbsp;Omi et al.,&nbsp;(2017) if you present results obtained by using Hawkes_TDB.</p>
+</div>
+<div class="section" id="reference">
+<h1>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h1>
+<ol class="upperalpha simple" start="20">
+<li>Omi, Y. Hirata, and K. Aihara, &#8220;Hawkes process model with a time-dependent background rate and its application to high-frequency financial data&#8221;, Physical Review E 96, 012303 (2017). <a class="reference external" href="https://doi.org/10.1103/PhysRevE.96.012303">https://doi.org/10.1103/PhysRevE.96.012303</a></li>
+</ol>
+</div>
+<div class="section" id="requirements">
+<h1>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference internal" href="#module-Hawkes_TDB" title="Hawkes_TDB"><code class="xref py py-mod docutils literal"><span class="pre">Hawkes_TDB</span></code></a> depends on the following external packages:</p>
+<ul class="simple">
+<li>Python 2.7</li>
+<li>Numpy</li>
+<li>Scipy</li>
+<li>Matplotlib</li>
+<li>Pandas</li>
+<li>Cython</li>
+</ul>
+</div>
+<div class="section" id="download">
+<h1>Download<a class="headerlink" href="#download" title="Permalink to this headline">¶</a></h1>
+<p>A source code is available at <a class="reference external" href="https://github.com/omitakahiro/Hawkes_TDB/">https://github.com/omitakahiro/Hawkes_TDB/</a>. After downloading and unzipping the file, please place the &#8220;Hawkes_TDB&#8221; folder in your working folder.</p>
+</div>
+<div class="section" id="data-preparation">
+<h1>Data preparation<a class="headerlink" href="#data-preparation" title="Permalink to this headline">¶</a></h1>
+<p>A data file is an ascii file that contains the list of occurrence times of events. A sample data file is included in the source file (./Hawkes_TDB/sample.txt).</p>
+<p>A data file is like:</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>11.766350
+74.832453
+86.070326
+91.188811
+106.781628
+121.730578
+176.882013
+189.934206
+193.354620
+200.264633
+...
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The times must be different to each other. If multiple events have the identical times, our code does not work well.</p>
+</div>
+</div>
+<div class="section" id="user-manual">
+<h1>User manual<a class="headerlink" href="#user-manual" title="Permalink to this headline">¶</a></h1>
+<p>We here consider a Hawkes process model with a time dependent backgraound rate given as</p>
+<div class="math">
+\[\lambda(t) = \mu(t) + \sum_{i&lt;t} g(t-t_i),\]</div>
+<p>where <span class="math">\({t_i}\)</span> represnts the times of events in the observation interval, and <span class="math">\(\mu(t)\)</span> and <span class="math">\(g(\cdot)\)</span> are respectively the background rate and a triggering function. Here the triggering function is set to the sum of two exponential functions according to our previous work (Omi et al., 2017),</p>
+<div class="math">
+\[g(s) = \sum_{j=1}^{2} \alpha_{j} \beta_{j} e^{-\beta_{j}s}.\]</div>
+<p>In this setting, the branching ratio is given as <span class="math">\(\alpha_1 + \alpha_2\)</span>.</p>
+<div class="section" id="api">
+<h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
+<p>A function <a class="reference internal" href="#Hawkes_TDB.Estimate" title="Hawkes_TDB.Estimate"><code class="xref py py-func docutils literal"><span class="pre">Estimate()</span></code></a> estimates the parameters of the above model from the data.</p>
+<dl class="function">
+<dt id="Hawkes_TDB.Estimate">
+<code class="descclassname">Hawkes_TDB.</code><code class="descname">Estimate</code><span class="sig-paren">(</span><em>T</em>, <em>itv</em><span class="sig-paren">)</span><a class="headerlink" href="#Hawkes_TDB.Estimate" title="Permalink to this definition">¶</a></dt>
+<dd><p>estimates the parameters of the above model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>T</strong> &#8211; a numpy array of the times of events</li>
+<li><strong>itv</strong> &#8211; a range of an observation interval ([float, float])</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a dictionary that represents the estimation results, summarized in the below table.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="9%" />
+<col width="91%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">key</th>
+<th class="head">despription</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>alpha1</td>
+<td>the alpha parameter of the first exponential function</td>
+</tr>
+<tr class="row-odd"><td>alpha2</td>
+<td>the alpha parameter of the second exponential function</td>
+</tr>
+<tr class="row-even"><td>beta1</td>
+<td>the beta parameter of the first exponential function</td>
+</tr>
+<tr class="row-odd"><td>beta2</td>
+<td>the beta parameter of the second exponential function</td>
+</tr>
+<tr class="row-even"><td>mu</td>
+<td>the background rate at each event</td>
+</tr>
+<tr class="row-odd"><td>L</td>
+<td>log-likelihood</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="sample-code">
+<h2>Sample code<a class="headerlink" href="#sample-code" title="Permalink to this headline">¶</a></h2>
+<p>Here is a sample code to estimate the parameters from a test data.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">Hawkes_TDB</span> <span class="kn">as</span> <span class="nn">hk</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<span class="c1"># if you use ipython notebook</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+
+<span class="c1"># estimation</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;./Hawkes_TDB/sample.txt&quot;</span><span class="p">)</span> <span class="c1"># data</span>
+<span class="n">itv</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">21600.0</span><span class="p">]</span> <span class="c1"># an observation interval</span>
+<span class="n">param</span> <span class="o">=</span> <span class="n">hk</span><span class="o">.</span><span class="n">Estimate</span><span class="p">(</span><span class="n">T</span><span class="p">,</span><span class="n">itv</span><span class="p">)</span>
+
+<span class="c1"># print the estimated parameter values</span>
+<span class="k">print</span> <span class="s2">&quot;alpha_1: </span><span class="si">%.2f</span><span class="s2">&quot;</span>  <span class="o">%</span> <span class="n">param</span><span class="p">[</span><span class="s2">&quot;alpha1&quot;</span><span class="p">]</span>
+<span class="k">print</span> <span class="s2">&quot;beta_1: </span><span class="si">%.2f</span><span class="s2">&quot;</span>  <span class="o">%</span> <span class="n">param</span><span class="p">[</span><span class="s2">&quot;beta1&quot;</span><span class="p">]</span>
+<span class="k">print</span> <span class="s2">&quot;alpha_2: </span><span class="si">%.2f</span><span class="s2">&quot;</span>  <span class="o">%</span> <span class="n">param</span><span class="p">[</span><span class="s2">&quot;alpha2&quot;</span><span class="p">]</span>
+<span class="k">print</span> <span class="s2">&quot;beta_2: </span><span class="si">%.2f</span><span class="s2">&quot;</span>  <span class="o">%</span> <span class="n">param</span><span class="p">[</span><span class="s2">&quot;beta2&quot;</span><span class="p">]</span>
+<span class="k">print</span> <span class="s2">&quot;log-likelihood: </span><span class="si">%.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">param</span><span class="p">[</span><span class="s2">&quot;L&quot;</span><span class="p">]</span>
+<span class="k">print</span> <span class="s2">&quot;branching ratio: </span><span class="si">%.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span> <span class="n">param</span><span class="p">[</span><span class="s2">&quot;alpha1&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">param</span><span class="p">[</span><span class="s2">&quot;alpha2&quot;</span><span class="p">]</span> <span class="p">)</span>
+
+<span class="c1"># plot the estimate of the time-dependent background rate :math:`\mu(t)`</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">T</span><span class="p">,</span><span class="n">param</span><span class="p">[</span><span class="s2">&quot;mu&quot;</span><span class="p">],</span><span class="s1">&#39;k-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;background rate&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">itv</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/mu.png" src="_images/mu.png" />
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">Hawkes_TDB  documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Takahiro Omi.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+    </div>
+  </body>
+</html>
