@@ -6,15 +6,16 @@
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+   
+.. py:module:: Hawkes_TDB
 
 About Hawkes_TDB
 ----------------------
-A python module “Hawkes_TDB” estimates a Hawkes process model with a time-dependent background rate based on Omi et al., (2017). Anyone can freely use this code without permission for non-commercial purposes, but please appropriately cite Omi et al., (2017) if you present results obtained by using Hawkes_TDB.
+A python module “Hawkes_TDB” aims to estimate a Hawkes process model with a time-dependent background rate based on Omi et al., (2017). Anyone can freely use this code without permission for non-commercial purposes, but please appropriately cite Omi et al., (2017) if you present results obtained by using Hawkes_TDB.
 
 Reference
 ----------------------
-T. Omi, Y. Hirata, and K. Aihara, Hawkes process model with a time-dependent background rate and its application to high-frequency financial data, Physical Review E 96, 012303 (2017).
-
+T. Omi, Y. Hirata, and K. Aihara, "Hawkes process model with a time-dependent background rate and its application to high-frequency financial data", Physical Review E 96, 012303 (2017). https://doi.org/10.1103/PhysRevE.96.012303
 
 Requirements
 ----------------------
@@ -29,7 +30,7 @@ Requirements
 
 Download
 ---------------------
-A source code is available at \ https://github.com/omitakahiro/Hawkes_TDB/\ . After downloading and unzipping the source file, please rename the package folder to “Hawkes_TDB”, and place it in your working folder.
+A source code is available at \ https://github.com/omitakahiro/Hawkes_TDB/\ . After downloading and unzipping the file, please place the "Hawkes_TDB" folder in your working folder.
 
 
 Data preparation
@@ -58,20 +59,32 @@ A data file is like:
 
 User manual
 ---------------------
+We here consider a Hawkes process model with a time dependent backgraound rate given as
 
-This code returns estimation results (It takes a few minutes).
-
-.. code-block:: python
-
-	import Hawkes_TDB as hk
+.. math::
 	
-	T = np.loadtxt("./Hawkes_TDB/sample.txt") # data
-	t = [0.0,21600.0] # the start and end of the observation interval
-	param = hk.Estimate(T,t)
+	\lambda(t) = \mu(t) + \sum_{i<t} g(t-t_i),
 	
+where :math:`{t_i}` represnts the times of events in the observation interval, and :math:`\mu(t)` and :math:`g(\cdot)` are respectively the background rate and a triggering function. Here the triggering function is set to the sum of two exponential functions according to our previous work (Omi et al., 2017),
+	
+.. math::
+	g(s) = \sum_{j=1}^{2} \alpha_{j} \beta_{j} e^{-\beta_{j}s}.
+	
+In this setting, the branching ratio is given as :math:`\alpha_1 + \alpha_2`.
 
-The object `param` is a dictionary that contains the estimation results.
+API
+^^^^^^
 
+A function :py:func:`Estimate` estimates the parameters of the above model from the data.
+	
+.. py:function:: Estimate(T,itv)
+
+   estimates the parameters of the above model.
+
+   :param T: a numpy array of the times of events
+   :param itv: a range of an observation interval ([float, float])
+   :return: a dictionary that represents the estimation results, summarized in the below table. 
+        
 .. csv-table::
    :header: "key", "despription"
    :widths: 10,100
@@ -83,13 +96,38 @@ The object `param` is a dictionary that contains the estimation results.
    "mu","the background rate at each event"
    "L","log-likelihood"
 
-You can plot the time-dependent backgrount rate by running the below code
+Sample code
+^^^^^^^^^^^^^
+
+Here is a sample code to estimate the parameters from a test data.
 
 .. code-block:: python
 
+	import Hawkes_TDB as hk
+	import numpy as np
+	import matplotlib.pyplot as plt
+	
+	# if you use ipython notebook
+	%matplotlib inline
+	
+	# estimation
+	T = np.loadtxt("./Hawkes_TDB/sample.txt") # data
+	itv = [0.0, 21600.0] # an observation interval
+	param = hk.Estimate(T,itv)
+	
+	# print the estimated parameter values
+	print "alpha_1: %.2f"  % param["alpha1"]
+	print "beta_1: %.2f"  % param["beta1"]
+	print "alpha_2: %.2f"  % param["alpha2"]
+	print "beta_2: %.2f"  % param["beta2"]
+	print "log-likelihood: %.2f" % param["L"]
+	print "branching ratio: %.2f" % ( param["alpha1"] + param["alpha2"] )
+	
+	# plot the estimate of the time-dependent background rate :math:`\mu(t)`
+	plt.figure()
 	plt.semilogy(T,param["mu"],'k-')
 	plt.xlabel("time")
 	plt.ylabel("background rate")
-	plt.xlim([0.,21600.])
+	plt.xlim(itv)
 	
 .. image:: mu.png
