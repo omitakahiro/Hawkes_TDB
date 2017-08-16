@@ -99,7 +99,7 @@ A function :py:func:`Estimate` estimates the parameters of the above model from 
 Sample code
 ^^^^^^^^^^^^^
 
-Here is a sample code to estimate the parameters from a test data.
+Here is a sample code to estimate the parameters from a test data. (take a few minutes)
 
 .. code-block:: python
 
