@@ -10,8 +10,8 @@ import scipy.sparse as spm
 
 from StatTool import Quasi_Newton,Bayesian_Smoothing
 
-import pyximport; pyximport.install(setup_args={'include_dirs': np.get_include()})
-import C_Hawkes
+#import pyximport; pyximport.install(setup_args={'include_dirs': np.get_include()})
+#import C_Hawkes
 
 ###########################################################################################
 ###########################################################################################
@@ -206,10 +206,10 @@ def LG_exp(para,T,cdt,only_L=False):
     
     ######################### SUM term
     ###python version
-    #[l,dl_a,dl_b] = SUM_exp(alpha,beta,T,n)
+    [l,dl_a,dl_b] = SUM_exp(alpha,beta,T,n)
     
     ###cython version
-    [l,dl_a,dl_b] = C_Hawkes.SUM_exp(alpha,beta,T,n)
+    #[l,dl_a,dl_b] = C_Hawkes.SUM_exp(alpha,beta,T,n)
     
     l = mu + l;
     dl = pd.DataFrame({"mu":np.ones(n,dtype=np.float64),"alpha":dl_a,"beta":dl_b})
@@ -275,8 +275,8 @@ def LG_exp_g(para,T,cdt,only_L=False):
         a_key = "alpha%d" % i; b_key = "beta%d" % i;
         
         ## SUM term
-        #[l_i,dl_a_i,dl_b_i] = SUM_exp(para[a_key],para[b_key],T,n) # python version
-        [l_i,dl_a_i,dl_b_i] = C_Hawkes.SUM_exp(para[a_key],para[b_key],T,n) # cython verision
+        [l_i,dl_a_i,dl_b_i] = SUM_exp(para[a_key],para[b_key],T,n) # python version
+        #[l_i,dl_a_i,dl_b_i] = C_Hawkes.SUM_exp(para[a_key],para[b_key],T,n) # cython verision
         l = l + l_i;
         dl.update({a_key:dl_a_i,b_key:dl_b_i})
         
@@ -338,6 +338,20 @@ def SUM_exp(alpha,beta,T,n):
 
     return [l,dl_a,dl_b]
 
+def SUM_exp_L(alpha,beta,T,n):
+    
+    l    = np.zeros(n)
+    dT = T[1:]-T[:-1]
+    r = np.exp(-beta*dT)
+    x = 0.0;
+    
+    for i in np.arange(n-1):
+        x   = ( x   + alpha*beta ) * r[i]
+        l[i+1] = x
+
+    return l
+
+
 def INT_exp(alpha,beta,T,en):
     
     I    = alpha*(1.0-np.exp(-beta*(en-T))).sum()
@@ -381,7 +395,8 @@ def LGH_tvm_g(para,state,T,cdt):
     for i in range(num_exp):
         a_key = "alpha%d" % i; b_key = "beta%d" % i;
         alpha = para[a_key]; beta = para[b_key];
-        l = l + C_Hawkes.SUM_exp_L(alpha,beta,T,n)
+        #l = l + C_Hawkes.SUM_exp_L(alpha,beta,T,n) #cython
+        l = l + SUM_exp_L(alpha,beta,T,n) #python
         Int_ab = Int_ab + alpha*(1.0-np.exp(-beta*(en-T))).sum()
     
     mu = np.exp(BasisMat.dot(state))
@@ -405,193 +420,6 @@ def LGH_tvm_g(para,state,T,cdt):
     
     
     return [L,G,H]
-
-##################################################
-## Residual Analysis
-##################################################
-from scipy import stats
-
-def ER_TEST(Data,param,t):
-    itv = TransformedInterval(Data,param,t)
-    
-    #x = np.exp(-itv)
-    #static = ( np.mean( (x-0.5)**2.0 ) - 1.0/12.0 ) * np.sqrt(len(x)) / np.sqrt(1.0/180.0)
-    
-    x = itv
-    static = ( np.var(x) - 1.0 ) * np.sqrt(len(x)) / np.sqrt(8.0)
-    
-    static = - np.abs(static)
-    return stats.norm.cdf( static ) * 2.0
-    
-def KS_TEST(Data,param,t):
-    itv = TransformedInterval(Data,param,t)
-    return stats.kstest(np.exp(-itv),'uniform')
-
-def INT_exp_itv(alpha,beta,T):
-    n = len(T)
-    d_T = T[1:] - T[:-1]
-    l = C_Hawkes.SUM_exp_L(alpha,beta,T,n)
-    itv = (l[:-1]+alpha*beta) * ( 1.0 - np.exp(-beta*d_T) ) / beta
-    
-    return itv
-
-def TransformedInterval(Data,param,t):
-    
-    num_exp = param["num_exp"]
-    para = param["para"]
-    
-    T = Data.query('%f < T < %f'%(t['st'],t['en']))['T'].values.copy()
-    n = len(T)
-    itv = np.zeros(n-1)
-    
-    ## triggering
-    for i in range(num_exp):
-        a_key = "alpha%d"%i; b_key = "beta%d"%i;
-        alpha = para[a_key]; beta = para[b_key]
-        itv = itv + INT_exp_itv(alpha,beta,T)
-    
-    ## background
-    if "knots" in param:
-        knots = param["knots"]
-        num_knots = len(knots)
-        mu = np.zeros(n)
-    
-        if num_knots == 1:
-            itv = itv + para['mu0']*(T[1:]-T[:-1])
-        else:
-            for i in range(num_knots-1):
-                m_key1 = "mu%d" % i; m_key2 = "mu%d" % (i+1);
-                [mu_i,_,_] = SUM_mu(T,para[m_key1],para[m_key2],knots[i],knots[i+1])
-                mu = mu + mu_i
-            
-            itv = itv + mu[:-1]*(T[1:]-T[:-1])
-            
-    elif "state" in para:
-        mu = para["mu"][1:]
-        itv = itv + mu[:-1]*(T[1:]-T[:-1])
-    else:
-        sys.exit("INVALID PARAM")
-    
-    return itv
-
-"""
-def TimeTransform(Data,para,t):
-    
-    try:
-        T = Data.query('%f < T < %f'%(t['st'],t['en']))['T'].values
-    except:
-        pass
-    
-    mu = para['mu']; alpha = para['alpha']; beta = para['beta'];
-    st = t['st']; en = t['en'];
-    n = len(T)
-    
-    T_ord = np.hstack([st,T,en])
-    Int_l = mu*(T_ord[1:]-T_ord[:-1])
-    
-    for i in np.arange(1,n+1):
-        Int_l[i] += alpha* ( np.exp(-beta*(T_ord[i]-T[0:i])) - np.exp(-beta*(T_ord[i+1]-T[0:i])) ).sum()
-    
-    T_trans = np.hstack([0,Int_l.cumsum()])
-    ste = np.nan_to_num(np.sqrt( T_trans*(1.0-T_trans/n) ))
-    
-    Er = {'l':T_trans-2.57*ste,'u':T_trans+2.57*ste}
-    
-    return [T_ord,T_trans,Er]
-
-def Graph_Residual(Data,para,t):
-    
-    [T_ord,T_trans,Er] =  TimeTransform(Data,para,t)
-    
-    plt.figure(figsize=(5,5))
-    n = len(T_ord)-2
-    plt.fill_between(T_trans,Er['l'],Er['u'],facecolor=[1,0.7,0.7],edgecolor=[1,0.7,0.7])
-    plt.plot(T_trans[1:-1],np.arange(1,n+1),'k.',markersize=2)
-    plt.plot([0,n],[0,n],'r-')
-    plt.xlim([0,n])
-    plt.ylim([0,n])
-
-def Graph_Residual_param(param):
-    T = param['T']; para = param['para']; t = param['t']
-    Graph_Residual(T,para,t)
-"""
-###########################################################################################
-###########################################################################################
-## Simulation
-###########################################################################################
-###########################################################################################
-def Simulate(alpha,beta,mu,t):
-    
-    if len(alpha) != len(beta):
-        sys.exit("len(alpha) != len(beta)")
-    
-    st = t['st']; en = t['en'];
-    num_exp = len(alpha)
-    
-    alpha = np.array(alpha); beta = np.array(beta);
-    T = np.empty(1000000,dtype='f8')
-    x = st; l0 = mu; i = 0;
-    l_trg = np.zeros(num_exp)
-    
-    while 1:
-        
-        itv = np.random.exponential()/l0
-        x += itv
-        l_trg = l_trg*np.exp(-beta*itv)
-        l1 = mu + l_trg.sum() 
-        
-        #print x,l1/l0
-        
-        if (x>en) or (i==1000000):
-            break
-        
-        if np.random.rand() < l1/l0: ## Fire
-            T[i] = x
-            i += 1
-            l_trg = l_trg + alpha*beta
-                
-        l0 = mu + l_trg.sum()
-        
-    T = pd.DataFrame({'T':T[:i]})
-    
-    return T
-
-def Simulate_tvm(alpha,beta,Func_mu,t):
-    
-    if len(alpha) != len(beta):
-        sys.exit("len(alpha) != len(beta)")
-    
-    st = t['st']; en = t['en'];
-    num_exp = len(alpha)
-    
-    alpha = np.array(alpha); beta = np.array(beta);
-    T = np.empty(1000000,dtype='f8')
-    x = st; mu = Func_mu(x); l0 = mu; i = 0;
-    l_trg = np.zeros(num_exp)
-    
-    while 1:
-        
-        itv = np.random.exponential()/l0
-        x += itv
-        l_trg = l_trg*np.exp(-beta*itv)
-        l1 = mu + l_trg.sum()
-        mu = Func_mu(x)
-        
-        #print x,l1/l0
-        
-        if (x>en) or (i==1000000):
-            break
-        
-        if np.random.rand() < l1/l0: ## Fire
-            T[i] = x
-            i += 1
-            l_trg = l_trg + alpha*beta
-                
-        l0 = mu + l_trg.sum()
-        
-    T = pd.DataFrame({'T':T[:i]})
-    
-    return T
 
 ###########################################################################################
 ###########################################################################################
@@ -617,25 +445,3 @@ def copy_para(para,num_exp):
     
     return para_tmp
     
-######################################################################
-######################################################################
-## demo
-######################################################################
-######################################################################
-def demo_Hawkes():
-    import catalog
-    Data_M = catalog.load_pkl('/Users/omi/Desktop/TSE6200/NK225MF.pkl')
-
-    st = datetime.datetime(2016,1,29,9,0,0)
-    en = datetime.datetime(2016,1,29,15,10,0)
-    dt = {'st':st,'en':en}
-    df = Data_M.extract_PC(dt,5,jitter=1.0) if st < datetime.datetime(2016,7,18,16,0) else Data_M.extract_PC(dt,5,jitter=0.001)
-    t = df.t
-    
-    param_3_1 = Estimate_tvm_g(df,t,num_exp=1,            opt=["timeout","print","rslt"]); para0 = copy_para(param_3_1["para"],1);
-    param_3_2 = Estimate_tvm_g(df,t,num_exp=2,para0=para0,opt=["timeout","print","rslt"]); para0 = copy_para(param_3_2["para"],2);
-    param_3_3 = Estimate_tvm_g(df,t,num_exp=3,para0=para0,opt=["timeout","print","rslt"]); para0 = copy_para(param_3_3["para"],3);
-    param_3_4 = Estimate_tvm_g(df,t,num_exp=4,para0=para0,opt=["timeout","print","rslt"])
-
-if __name__ == '__main__':
-    demo_Hawkes()

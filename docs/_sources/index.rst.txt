@@ -94,7 +94,7 @@ A function :py:func:`Estimate` estimates the parameters of the above model from 
    "beta1","the beta parameter of the first exponential function"
    "beta2","the beta parameter of the second exponential function"
    "mu","the background rate at each event"
-   "L","log-likelihood"
+   "L","log marginal likelihood"
 
 Sample code
 ^^^^^^^^^^^^^
