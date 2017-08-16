@@ -217,15 +217,24 @@
 <span class="k">print</span> <span class="s2">&quot;beta_1: </span><span class="si">%.2f</span><span class="s2">&quot;</span>  <span class="o">%</span> <span class="n">param</span><span class="p">[</span><span class="s2">&quot;beta1&quot;</span><span class="p">]</span>
 <span class="k">print</span> <span class="s2">&quot;alpha_2: </span><span class="si">%.2f</span><span class="s2">&quot;</span>  <span class="o">%</span> <span class="n">param</span><span class="p">[</span><span class="s2">&quot;alpha2&quot;</span><span class="p">]</span>
 <span class="k">print</span> <span class="s2">&quot;beta_2: </span><span class="si">%.2f</span><span class="s2">&quot;</span>  <span class="o">%</span> <span class="n">param</span><span class="p">[</span><span class="s2">&quot;beta2&quot;</span><span class="p">]</span>
-<span class="k">print</span> <span class="s2">&quot;log-likelihood: </span><span class="si">%.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">param</span><span class="p">[</span><span class="s2">&quot;L&quot;</span><span class="p">]</span>
+<span class="k">print</span> <span class="s2">&quot;log marginal-likelihood: </span><span class="si">%.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">param</span><span class="p">[</span><span class="s2">&quot;L&quot;</span><span class="p">]</span>
 <span class="k">print</span> <span class="s2">&quot;branching ratio: </span><span class="si">%.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span> <span class="n">param</span><span class="p">[</span><span class="s2">&quot;alpha1&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">param</span><span class="p">[</span><span class="s2">&quot;alpha2&quot;</span><span class="p">]</span> <span class="p">)</span>
 
-<span class="c1"># plot the estimate of the time-dependent background rate :math:`\mu(t)`</span>
+<span class="c1"># plot the estimate of the time-dependent background rate \mu(t)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">T</span><span class="p">,</span><span class="n">param</span><span class="p">[</span><span class="s2">&quot;mu&quot;</span><span class="p">],</span><span class="s1">&#39;k-&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;background rate&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">itv</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>alpha_1: 0.27
+beta_1: 0.21
+alpha_2: 0.31
+beta_2: 2.83
+log marginal-likelihood: 4715.65
+branching ratio: 0.57
 </pre></div>
 </div>
 <img alt="_images/mu.png" src="_images/mu.png" />
