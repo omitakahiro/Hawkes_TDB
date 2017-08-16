@@ -120,14 +120,25 @@ Here is a sample code to estimate the parameters from a test data.
 	print "beta_1: %.2f"  % param["beta1"]
 	print "alpha_2: %.2f"  % param["alpha2"]
 	print "beta_2: %.2f"  % param["beta2"]
-	print "log-likelihood: %.2f" % param["L"]
+	print "log marginal-likelihood: %.2f" % param["L"]
 	print "branching ratio: %.2f" % ( param["alpha1"] + param["alpha2"] )
 	
-	# plot the estimate of the time-dependent background rate :math:`\mu(t)`
+	# plot the estimate of the time-dependent background rate \mu(t)
 	plt.figure()
 	plt.semilogy(T,param["mu"],'k-')
 	plt.xlabel("time")
 	plt.ylabel("background rate")
 	plt.xlim(itv)
+
+Output:
+	
+.. code-block:: none
+
+	alpha_1: 0.27
+	beta_1: 0.21
+	alpha_2: 0.31
+	beta_2: 2.83
+	log marginal-likelihood: 4715.65
+	branching ratio: 0.57	
 	
 .. image:: mu.png
