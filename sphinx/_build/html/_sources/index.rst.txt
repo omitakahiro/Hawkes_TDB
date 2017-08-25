@@ -15,7 +15,7 @@ A python module “Hawkes_TDB” aims to estimate a Hawkes process model with a 
 
 Reference
 ----------------------
-T. Omi, Y. Hirata, and K. Aihara, "Hawkes process model with a time-dependent background rate and its application to high-frequency financial data", Physical Review E 96, 012303 (2017). https://doi.org/10.1103/PhysRevE.96.012303
+| T. Omi, Y. Hirata, and K. Aihara, "Hawkes process model with a time-dependent background rate and its application to high-frequency financial data", Physical Review E 96, 012303 (2017). https://doi.org/10.1103/PhysRevE.96.012303
 
 Requirements
 ----------------------
@@ -26,7 +26,6 @@ Requirements
 - Scipy
 - Matplotlib
 - Pandas
-- Cython
 
 Download
 ---------------------
