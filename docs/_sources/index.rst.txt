@@ -95,19 +95,18 @@ A function :py:func:`Estimate` estimates the parameters of the above model from 
    "mu","the background rate at each event"
    "L","log marginal likelihood"
 
-Sample code
-^^^^^^^^^^^^^
+Sample code for ipython notebook
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Here is a sample code to estimate the parameters from a test data. (take a few minutes)
 
 .. code-block:: python
 
+	%matplotlib inline
+	
 	import Hawkes_TDB as hk
 	import numpy as np
 	import matplotlib.pyplot as plt
-	
-	# if you use ipython notebook
-	%matplotlib inline
 	
 	# estimation
 	T = np.loadtxt("./Hawkes_TDB/sample.txt") # data

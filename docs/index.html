@@ -52,7 +52,7 @@
 <li><a class="reference internal" href="#data-preparation">Data preparation</a></li>
 <li><a class="reference internal" href="#user-manual">User manual</a><ul>
 <li><a class="reference internal" href="#api">API</a></li>
-<li><a class="reference internal" href="#sample-code">Sample code</a></li>
+<li><a class="reference internal" href="#sample-code-for-ipython-notebook">Sample code for ipython notebook</a></li>
 </ul>
 </li>
 </ul>
@@ -196,15 +196,14 @@
 </tbody>
 </table>
 </div>
-<div class="section" id="sample-code">
-<h2>Sample code<a class="headerlink" href="#sample-code" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="sample-code-for-ipython-notebook">
+<h2>Sample code for ipython notebook<a class="headerlink" href="#sample-code-for-ipython-notebook" title="Permalink to this headline">¶</a></h2>
 <p>Here is a sample code to estimate the parameters from a test data. (take a few minutes)</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">Hawkes_TDB</span> <span class="kn">as</span> <span class="nn">hk</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+
+<span class="kn">import</span> <span class="nn">Hawkes_TDB</span> <span class="kn">as</span> <span class="nn">hk</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-
-<span class="c1"># if you use ipython notebook</span>
-<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
 
 <span class="c1"># estimation</span>
 <span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;./Hawkes_TDB/sample.txt&quot;</span><span class="p">)</span> <span class="c1"># data</span>
