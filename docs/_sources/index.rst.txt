@@ -17,6 +17,10 @@ Reference
 ----------------------
 | T. Omi, Y. Hirata, and K. Aihara, "Hawkes process model with a time-dependent background rate and its application to high-frequency financial data", Physical Review E 96, 012303 (2017). https://doi.org/10.1103/PhysRevE.96.012303
 
+Contatct
+----------------------
+Takahiro Omi (https://sites.google.com/view/omitakahiro/)
+
 Requirements
 ----------------------
 :mod:`Hawkes_TDB` depends on the following external packages:
