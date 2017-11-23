@@ -7,5 +7,4 @@ Anyone can freely use this code without permission for non-commercial purposes, 
 
 **Documentation:** https://omitakahiro.github.io/Hawkes_TDB/  
   
-
-Hosted by [Takahiro Omi](https://sites.google.com/view/omitakahiro/)
+**Developed by:** [Takahiro Omi](https://sites.google.com/view/omitakahiro/)
