@@ -5,6 +5,7 @@ Anyone can freely use this code without permission for non-commercial purposes, 
 
   - T. Omi, Y. Hirata, and K. Aihara, "Hawkes process model with a time-dependent background rate and its application to high-frequency financial data", Physical Review E 96, 012303 (2017). https://doi.org/10.1103/PhysRevE.96.012303
 
-**Documentation:** https://omitakahiro.github.io/Hawkes_TDB/
+**Documentation:** https://omitakahiro.github.io/Hawkes_TDB/  
+  
 
-**Contact:** Takahiro Omi (omi[at]sat.t.u-tokyo.ac.jp, https://sites.google.com/view/omitakahiro/)
+Hosted by [Takahiro Omi](https://sites.google.com/view/omitakahiro/)
